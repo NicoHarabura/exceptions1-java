@@ -36,30 +36,17 @@ public class Program {
 		System.out.println("Check Out Date: ");
 		checkOut = sdf.parse(sc.next());
 
-		Date now = new Date();
+		String error = reservation.updateDates(checkIn, checkOut);
 
-		while (checkOut.before(now) || checkIn.before(now)) {
-			System.out.println("Error in Reservation: Reservation dates must be future dates!");
+		while (error != null) {
+			System.out.println("Error in Reservation: " + error);
 			System.out.println("Check In Date: ");
 			checkIn = sdf.parse(sc.next());
 			System.out.println("Check Out Date: ");
 			checkOut = sdf.parse(sc.next());
+			error = reservation.updateDates(checkIn, checkOut);
 		}
-		while (checkIn.after(checkOut)) {
-			System.out.println("Error in Reservation: Check Out date must be after Check In date!");
-			System.out.println("Check In Date: ");
-			checkIn = sdf.parse(sc.next());
-			System.out.println("Check Out Date: ");
-			checkOut = sdf.parse(sc.next());
-			while (checkOut.before(now) || checkIn.before(now)) {
-				System.out.println("Error in Reservation: Reservation dates must be future dates!");
-				System.out.println("Check In Date: ");
-				checkIn = sdf.parse(sc.next());
-				System.out.println("Check Out Date: ");
-				checkOut = sdf.parse(sc.next());
-			}
-		}
-		reservation.updateDates(checkIn, checkOut);
+
 		System.out.println("Reservation: " + reservation);
 
 		sc.close();
